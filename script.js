@@ -4,7 +4,7 @@ import { getList, removeLocalS } from "./modules/data.mjs";
 let todoItems = [];
 let root = document.getElementById('root');
 
-let headerTmp = `<header><h2>Igor's Todo Lista</h2></header>`;
+let headerTmp = `<header><h2>what-to-do-app</h2></header>`;
 
 root.insertAdjacentHTML("afterbegin", headerTmp);
 
@@ -24,7 +24,7 @@ form.appendChild(newInput); // appending input to form
 let btn = document.createElement('button'); // creating button
 //btn.setAttribute('type', 'submit'); // setting attribute to submit
 btn.classList.add('todo-button'); // adding class to it
-btn.innerText = 'Lägg till';
+btn.innerText = 'Lägg till todo';
 form.appendChild(btn); // appending btn to form
 
 
@@ -52,8 +52,7 @@ function addItem(e) {
   // Create Li
   let li = document.createElement('li');
   li.innerText = newInput.value;
-  li.id = newInput.value;
-  console.log(li.id);
+  li.id = Math.floor(Math.random() * 100000);
   li.classList.add('todo-item');
   todoDiv.appendChild(li);
   // Kolla om det finns Local Storage och sedan lägger jag till ett item som argument, se data.mjs
@@ -63,6 +62,13 @@ function addItem(e) {
   completedBtn.innerText = 'Klar';
   completedBtn.classList.add('completed-btn');
   todoDiv.appendChild(completedBtn);
+
+  // Delete button
+  let removeBtn = document.createElement('button');
+  removeBtn.innerText = 'Ta bort';
+  removeBtn.classList.add('delete-btn');
+  todoDiv.appendChild(removeBtn);
+
   // Append child to list
   todoList.appendChild(todoDiv);
   // Adding todo item inside the empty array
@@ -73,17 +79,61 @@ function addItem(e) {
  }
 }
 // Funktion för att ta bort todo punkt
-function removeItem(e) {
- let item = e.target;
- // Delete todo
- if (item.classList[0] === 'completed-btn') {
-  let todo = item.parentElement;
-  todo.remove();
+function handleClickDeleteOrCheck(e) {
+ if (e.target.classList[0] == 'completed-btn') {
+  checkTodo(e);
  }
- removeLocalS(item.previousElementSibling.id);
+ if (e.target.classList[0] == 'delete-btn') {
+  deleteTodo(e);
+ }
+
+ function checkTodo(e) {
+  let item = e.target.parentNode;
+  if (item.style.textDecoration == 'line-through') {
+   item.style.textDecoration = 'none';
+  }
+  else {
+   item.style.textDecoration = 'line-through';
+  }
+ }
+
+
+ function deleteTodo(e) {
+  let deleteItem = e.target.parentNode;
+  console.log('delete', deleteItem);
+  deleteItem.remove();
+
+ }
+
+ // // console.log(e.target.parentNode);
+ // console.log(e.target.name);
+ // let item = e.target;
+ // // Delete todo
+ // if (item.classList[0] === 'completed-btn') {
+ //  let todo = item.parentElement;
+ //  todo.remove();
+ // }
+ // removeLocalS(item.previousElementSibling.id);
 }
 
 // Eventlistener
 btn.addEventListener('click', addItem);
-todoList.addEventListener('click', removeItem);
+todoList.addEventListener('click', handleClickDeleteOrCheck);
 
+// if (completedBtn) {
+
+//  completedBtn.addEventListener('click', (e) => {
+//   console.log('klickad completed', e.target);
+//  })
+// }
+
+// function removeItem(e) {
+//  console.log(e.target.parentNode);
+//  let item = e.target;
+//  // Delete todo
+//  if (item.classList[0] === 'completed-btn') {
+//   let todo = item.parentElement;
+//   todo.remove();
+//  }
+//  removeLocalS(item.previousElementSibling.id);
+// }

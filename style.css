@@ -76,6 +76,15 @@ form button:hover {
   font-size: 0.8rem;
 }
 
+.delete-btn {
+  background: rgba(248, 9, 9, 0.801);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
 .todo-item {
   padding: 0.4rem;
   background-color: white;

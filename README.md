@@ -1,4 +1,4 @@
-# h5-template-gtd
-För röda tråden övningen Get Things Done
 # get-things-done
 # todo-app
+
+Created an todo app using Vanilla JS

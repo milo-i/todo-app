@@ -1,4 +1,4 @@
-// Function to check if there is LS and then adding the itemAdd function to add item to LS
+// Function to check if there is LS and then adding the itemAdd function to add item to Local storage
 export function getList(item) {
   let todos;
   if (localStorage.getItem('todos') === null) {
@@ -9,7 +9,7 @@ export function getList(item) {
   itemAdd(todos, item);
 }
 
-// Function to add item to LS
+// Function to add item to Local storage
 function itemAdd(lsArr, item) {
   lsArr.push(item);
   localStorage.setItem('todos', JSON.stringify(lsArr));

@@ -1,4 +1,4 @@
-import { getList, removeLocalS } from "./modules/data.mjs";
+import { getList } from "./modules/data.mjs";
 
 // empty Array
 let todoItems = [];
@@ -29,7 +29,7 @@ form.appendChild(btn); // appending btn to form
 
 
 
-// Listan med li items
+// List with items
 
 let todoTmp = `<div class="todo-container"><ul class="todo-list" >`;
 todoTmp += `</ul></div>`;
@@ -40,7 +40,7 @@ root.insertAdjacentHTML('beforeend', todoTmp);
 let todoList = document.querySelector('.todo-list');
 
 
-// Funktioner för att lägga todo punkt
+// Function to add a todo
 function addItem(e) {
  e.preventDefault();
  if (newInput.value == '') {
@@ -55,7 +55,7 @@ function addItem(e) {
   li.id = Math.floor(Math.random() * 100000);
   li.classList.add('todo-item');
   todoDiv.appendChild(li);
-  // Kolla om det finns Local Storage och sedan lägger jag till ett item som argument, se data.mjs
+  // Check to see if Local Storage exists and then add item as an argument, see data.mjs 
   getList(newInput.value);
   // Completed button
   let completedBtn = document.createElement('button');
@@ -78,7 +78,7 @@ function addItem(e) {
   newInput.value = '';
  }
 }
-// Funktion för att ta bort todo punkt
+// Function to remove todo
 function handleClickDeleteOrCheck(e) {
  if (e.target.classList[0] == 'completed-btn') {
   checkTodo(e);
@@ -100,40 +100,11 @@ function handleClickDeleteOrCheck(e) {
 
  function deleteTodo(e) {
   let deleteItem = e.target.parentNode;
-  console.log('delete', deleteItem);
   deleteItem.remove();
-
  }
-
- // // console.log(e.target.parentNode);
- // console.log(e.target.name);
- // let item = e.target;
- // // Delete todo
- // if (item.classList[0] === 'completed-btn') {
- //  let todo = item.parentElement;
- //  todo.remove();
- // }
- // removeLocalS(item.previousElementSibling.id);
+ // removeLocalS();
 }
 
 // Eventlistener
 btn.addEventListener('click', addItem);
 todoList.addEventListener('click', handleClickDeleteOrCheck);
-
-// if (completedBtn) {
-
-//  completedBtn.addEventListener('click', (e) => {
-//   console.log('klickad completed', e.target);
-//  })
-// }
-
-// function removeItem(e) {
-//  console.log(e.target.parentNode);
-//  let item = e.target;
-//  // Delete todo
-//  if (item.classList[0] === 'completed-btn') {
-//   let todo = item.parentElement;
-//   todo.remove();
-//  }
-//  removeLocalS(item.previousElementSibling.id);
-// }
